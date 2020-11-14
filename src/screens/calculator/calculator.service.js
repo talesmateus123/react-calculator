@@ -23,8 +23,25 @@ function CalculatorService() {
         return result
     }
 
+    const concatenateNumber = (currentyNumber, newNumber) => {
+        if(currentyNumber === '0' || currentyNumber) {
+            currentyNumber = ''
+        }
+
+        if(newNumber === '.' && newNumber === '') {
+            return 0
+        }
+
+        if(newNumber === '.' && currentyNumber.indexOf('.' > -1)) {
+            return currentyNumber
+        }
+
+        return currentyNumber + newNumber
+    }
+
     return [
         calculate,
+        concatenateNumber,
         SUM,
         SUBTRACTION,
         MULTIPLICATION,
