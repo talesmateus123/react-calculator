@@ -24,7 +24,7 @@ function CalculatorService() {
     }
 
     const concatenateNumber = (currentyNumber, newNumber) => {
-        if(currentyNumber === '0' || currentyNumber) {
+        if(currentyNumber === '0' || !currentyNumber) {
             currentyNumber = ''
         }
 
@@ -32,7 +32,7 @@ function CalculatorService() {
             return 0
         }
 
-        if(newNumber === '.' && currentyNumber.indexOf('.' > -1)) {
+        if(newNumber === '.' && currentyNumber.indexOf('.') > -1) {
             return currentyNumber
         }
 

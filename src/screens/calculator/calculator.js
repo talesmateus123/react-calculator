@@ -4,17 +4,55 @@ import {
     Row, Col, Button, Form
 } from 'react-bootstrap'
 import './calculator.css'
+import CalculatorService from './calculator.service'
 
 export default () => {
+    const [calculate, concatenateNumber, SUM, SUBTRACTION, MULTIPLICATION, DIVISION] = CalculatorService();
 
     const [displayTxt, setDisplayTxt] = useState('0')
+    const [number1, setNumber1] = useState('0')
+    const [number2, setNumber2] = useState(null)
+    const [operation, setOperation] = useState(null)
 
     const addNumber = number => {
-        setDisplayTxt(displayTxt + number);
+        let result
+        if(operation) {
+            result = concatenateNumber(number2, number)
+            setNumber2(result)
+        }
+        else {
+            result = concatenateNumber(number1, number)
+            setNumber1(result)
+        }
+        setDisplayTxt(result)
     }
 
-    const defineOperation = operation => {
+    const defineOperation = op => {
+        if(!operation) {
+            setOperation(op)
+            return
+        }
+        if(number2) {
+            const result = calculate(parseFloat(number1), parseFloat(number2), operation)
+            setOperation(op)
+            setNumber1(result.toString())
+            setNumber2(null)
+            setDisplayTxt(result.toString())
+        }
+    }
 
+    const calculateAction = () => {
+        if (number2) {
+            const result = calculate(parseFloat(number1), parseFloat(number2), operation)
+            setDisplayTxt(result.toString())
+        }
+    }
+
+    const clearDisplayText = () => {
+        setDisplayTxt('0')
+        setNumber1('0')
+        setNumber2(null)
+        setOperation(null)
     }
 
     return (
@@ -30,7 +68,7 @@ export default () => {
                     <Row>
                         <Col xs="3">
                             <Button variant="danger"
-                                onClick={() => setDisplayTxt('0')}
+                                onClick={clearDisplayText}
                             >C</Button>
                         </Col>
                         <Col xs="9">
@@ -107,10 +145,12 @@ export default () => {
                                 onClick={() => addNumber('0')}>0</Button>
                         </Col>
                         <Col>
-                            <Button variant="light">.</Button>
+                            <Button variant="light"
+                                onClick={() => addNumber('.')}>.</Button>
                         </Col>
                         <Col>
-                            <Button variant="success">=</Button>
+                            <Button variant="success"
+                                onClick={calculateAction}>=</Button>
                         </Col>
                         <Col>
                             <Button variant="warning"
