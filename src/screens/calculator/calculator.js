@@ -78,6 +78,7 @@ export default () => {
                                 className="text-right" 
                                 readOnly="readOnly"
                                 value={displayTxt}
+                                data-testid="displayTxt"
                             />
                         </Col>
                     </Row>
@@ -97,7 +98,7 @@ export default () => {
                         </Col>
                         <Col>
                             <Button variant="warning"
-                                onClick={() => defineOperation('/')}>/</Button>
+                                onClick={() => defineOperation(DIVISION)}>/</Button>
                         </Col>
                     </Row>
 
@@ -116,7 +117,7 @@ export default () => {
                         </Col>
                         <Col>
                             <Button variant="warning"
-                                onClick={() => defineOperation('*')}>*</Button>
+                                onClick={() => defineOperation(MULTIPLICATION)}>*</Button>
                         </Col>
                     </Row>
 
@@ -135,7 +136,7 @@ export default () => {
                         </Col>
                         <Col>
                             <Button variant="warning"
-                                onClick={() => defineOperation('-')}>-</Button>
+                                onClick={() => defineOperation(SUBTRACTION)}>-</Button>
                         </Col>
                     </Row>
 
@@ -154,7 +155,7 @@ export default () => {
                         </Col>
                         <Col>
                             <Button variant="warning"
-                                onClick={() => defineOperation('+')}>+</Button>
+                                onClick={() => defineOperation(SUM)}>+</Button>
                         </Col>
                     </Row>
                 </Container>
